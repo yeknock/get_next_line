@@ -1,0 +1,1 @@
+get-NEXT-LINE 42 YEREVAN
