@@ -14,13 +14,14 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-# define BUFFER_SIZE 4
+# define BUFFER_SIZE 5
 # endif
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <stddef.h>
 
 char	*get_next_line(int fd);
+char	*ft_strcat(char *dst, char *src);
+int		new_line_finder(char * str);
 
 #endif

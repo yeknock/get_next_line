@@ -14,31 +14,34 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-
-
-
-
-void gnl(int fd)
+char	*get_next_line(int fd)
 {
-	char	*buf;
-	int		count;
+	static	char	*buf;
+	char			*line;
+	int		bytes_read;
 
-	count = 0;
-	// if (!BUFFER_SIZE)
-		// return (0);
-	buf = malloc(BUFFER_SIZE);
-	while(read(fd, buf, BUFFER_SIZE))
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	buf = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	bytes_read = 1;
+	while (bytes_read)
 	{
-		printf("%s\n", buf);
+		bytes_read = read(fd, buf, BUFFER_SIZE);
+		if (bytes_read == -1)
+		{
+			free(buf);
+			return (NULL);
+		}
+		
 	}
-	// return (count);
+	return (line);
 }
 
 int main()
 {
 	int fd = open("main.txt", O_RDONLY);
-	gnl(fd);
-	// printf("%d", a);
+	printf("%s", gnl(fd));
+
 
 	return (0);
 }
