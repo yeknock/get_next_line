@@ -18,10 +18,15 @@
 # endif
 
 # include <stdlib.h>
+# include <stddef.h>
 # include <unistd.h>
 
 char	*get_next_line(int fd);
-char	*ft_strcat(char *dst, char *src);
-int		new_line_finder(char * str);
+char	*ft_strchr(const char *str, int c);
+char	*ft_strjoin(char const *s1, char const *s2);
+size_t	ft_strlen(const char *str);
+char	*ft_strdup(const char *str);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strdup(const char *str);
 
 #endif

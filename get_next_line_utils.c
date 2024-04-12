@@ -12,8 +12,6 @@
 
 #include "get_next_line.h"
 
-//  concatenate the src to dst
-
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*str;
@@ -41,19 +39,25 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (str);
 }
 
-// new_line finder function
-int	new_line_finder(char * str)
+size_t	ft_strlen(const char *str)
 {
 	int	i;
 
 	i = 0;
-	if (!str)
-		return (0);
 	while (str[i] != '\0')
-	{
-		if (str[i] == '\n')
-			return (1);
 		i++;
+	return (i);
+}
+
+char	*ft_strchr(const char *str, int c)
+{
+	while (*str)
+	{
+		if (*str == (char)c)
+			return ((char *)str);
+		str++;
 	}
-	return (0);
+	if ((char)c == 0)
+		return ((char *)str);
+	return ((char *) 0);
 }
