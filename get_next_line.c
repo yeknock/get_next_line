@@ -14,46 +14,55 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-int	count_beforen(char *buf)
+
+char	*regulator(char *buf, char *line)
 {
-	int	i;
+	char	*tmp_buf;
+	int		i;
+	int		j;
 
 	i = 0;
-	if (!buf)
-		return (0);
-	while (buf[i] != '\n')
+	j = 0;
+	while (buf && buf[i] && buf[i] != '\n')
 		i++;
-	return (i);
+	tmp_buf = malloc(sizeof(char) * (ft_strlen(buf) - i));
+	if (!tmp_buf)
+		return (0);
+	while (buf && buf[i] && buf[i] != '\0')
+	{
+		i++;
+		tmp_buf[j] = buf[i];
+		j++;
+	}
+	free(buf);
+	if (line && !line[0])
+		free(line);
+	return (tmp_buf);
 }
 
 char	*ft_get_line(char *buf)
 {
 	char	*line;
-	char	*tmp_buf;
-	char	*ptr;
 	int		i;
 
 	i = 0;
-	ptr = buf;
-	line = malloc(sizeof(char) * count_beforen(buf) + 1);
-	tmp_buf = malloc(sizeof(char) * ft_strlen(buf) - count_beforen(buf));
-	if (!line || !tmp_buf)
+	while (buf && buf[i] && buf[i] != '\n')
+		i++;
+	line = malloc(sizeof(char) * (i + 2));
+	if (!line)
 		return (0);
-	while (buf[i] != '\n')
+	i = 0;
+	while (buf && buf[i] && buf[i] != '\n')
+	{
+		line[i] = buf[i];
+		i++;
+	}
+	if (buf && buf[i] == '\n')
 	{
 		line[i] = buf[i];
 		i++;
 	}
 	line[i] = '\0';
-	i++;
-	while (buf[i] != '\0')
-	{
-		tmp_buf[i - count_beforen(buf) - 1] = buf[i];
-		i++;
-	}
-	tmp_buf[i - count_beforen(buf)] = '\0';
-	buf = tmp_buf;
-	free(ptr);
 	return (line);
 }
 
@@ -63,17 +72,20 @@ char	*ft_read(int fd, char *buf)
 	char	*ptr_buf;
 	int		bytes_read;
 
-	tmp = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	ptr_buf = 0;
+	tmp = 0;
+	tmp = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	bytes_read = 1;
 	if (!tmp)
 		return (0);
-	while (!ft_strchr(buf, '\n') && bytes_read)
+	while ((!buf || !ft_strchr(buf, '\n')) && bytes_read)
 	{
 		ptr_buf = buf;
 		bytes_read = read(fd, tmp, BUFFER_SIZE);
-		if (bytes_read == -1)
+		if (bytes_read < 0)
 		{
 			free(tmp);
+			free(buf);
 			return (0);
 		}
 		tmp[bytes_read] = '\0';
@@ -89,23 +101,39 @@ char	*get_next_line(int fd)
 	static	char	*buf;
 	char			*line;
 
-	if(fd < 0 || BUFFER_SIZE <= 0 || !buf)
+	if(fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (0);
+	line = 0;
 	buf = ft_read(fd, buf);
-	if (!buf)
+	if (buf && !buf[0])
+	{
+		free(buf);
+		buf = 0;
 		return (0);
+	}
 	line = ft_get_line(buf);
-	
-
-
+	buf = regulator(buf,line);
 	return (line);
 }
 
-int main()
-{
-	int fd = open("main.txt", O_RDONLY);
-	char *p = get_next_line(fd);
+// int main()
+// {
+// 	int fd = open("gnlTester/files/empty", O_RDONLY);
+// 	char *p = get_next_line(fd);
 
-	printf("%s", p);
-	return (0);
-}
+// 	printf("%s", p);
+// 	p = get_next_line(fd);
+
+// 	printf("%s", p);
+// 	// p = get_next_line(fd);
+
+// 	// printf("%s", p);
+// 	// p = get_next_line(fd);
+
+// 	// printf("%s", p);
+// 	// 	p = get_next_line(fd);
+
+// 	// printf("%s", p);
+
+// 	return (0);
+// }
