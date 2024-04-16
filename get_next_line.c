@@ -6,14 +6,11 @@
 /*   By: ymartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 14:59:22 by ymartiro          #+#    #+#             */
-/*   Updated: 2024/04/06 14:59:25 by ymartiro         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:03:51 by ymartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <fcntl.h>
-#include <stdio.h>
-
 
 char	*regulator(char *buf, char *line)
 {
@@ -73,7 +70,6 @@ char	*ft_read(int fd, char *buf)
 	int		bytes_read;
 
 	ptr_buf = 0;
-	tmp = 0;
 	tmp = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	bytes_read = 1;
 	if (!tmp)
@@ -89,7 +85,7 @@ char	*ft_read(int fd, char *buf)
 			return (0);
 		}
 		tmp[bytes_read] = '\0';
-		buf = ft_strjoin(buf,tmp);
+		buf = ft_strjoin(buf, tmp);
 		free(ptr_buf);
 	}
 	free(tmp);
@@ -98,10 +94,10 @@ char	*ft_read(int fd, char *buf)
 
 char	*get_next_line(int fd)
 {
-	static	char	*buf;
-	char			*line;
+	static char	*buf;
+	char		*line;
 
-	if(fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (0);
 	line = 0;
 	buf = ft_read(fd, buf);
@@ -112,28 +108,6 @@ char	*get_next_line(int fd)
 		return (0);
 	}
 	line = ft_get_line(buf);
-	buf = regulator(buf,line);
+	buf = regulator(buf, line);
 	return (line);
 }
-
-// int main()
-// {
-// 	int fd = open("gnlTester/files/empty", O_RDONLY);
-// 	char *p = get_next_line(fd);
-
-// 	printf("%s", p);
-// 	p = get_next_line(fd);
-
-// 	printf("%s", p);
-// 	// p = get_next_line(fd);
-
-// 	// printf("%s", p);
-// 	// p = get_next_line(fd);
-
-// 	// printf("%s", p);
-// 	// 	p = get_next_line(fd);
-
-// 	// printf("%s", p);
-
-// 	return (0);
-// }

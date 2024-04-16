@@ -6,13 +6,13 @@
 /*   By: ymartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:00:16 by ymartiro          #+#    #+#             */
-/*   Updated: 2024/04/06 15:00:17 by ymartiro         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:23:29 by ymartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strjoin(char  *s1, char  *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*str;
 	size_t	i;
