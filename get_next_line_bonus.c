@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/06 14:59:22 by ymartiro          #+#    #+#             */
-/*   Updated: 2024/04/16 20:22:16 by ymartiro         ###   ########.fr       */
+/*   Created: 2024/04/16 21:00:01 by ymartiro          #+#    #+#             */
+/*   Updated: 2024/04/16 21:00:05 by ymartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+// #include <fcntl.h>
+// #include <stdio.h>
 
 char	*regulator(char *buf, char *line)
 {
@@ -113,3 +115,14 @@ char	*get_next_line(int fd)
 	buf = regulator(buf, line);
 	return (line);
 }
+
+// int main()
+// {
+// 	int fd1 = open("main.txt", O_RDONLY);
+// 	int fd2 = open("main2.txt", O_RDONLY);
+// 	int fd3 = open("main3.txt", O_RDONLY);
+
+// 	printf("%s\n", get_next_line(fd1));
+// 	printf("%s\n", get_next_line(fd2));
+// 	printf("%s\n", get_next_line(fd3));
+// }
