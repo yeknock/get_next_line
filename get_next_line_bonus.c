@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-// #include <fcntl.h>
-// #include <stdio.h>
+#include "get_next_line_bonus.h"
+#include <fcntl.h>
+#include <stdio.h>
 
 char	*regulator(char *buf, char *line)
 {
@@ -96,33 +96,31 @@ char	*ft_read(int fd, char *buf)
 
 char	*get_next_line(int fd)
 {
-	static char	*buf;
+	static char	*buf[OPEN_MAX];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-	{
 		return (0);
-	}
 	line = 0;
-	buf = ft_read(fd, buf);
-	if (!buf || buf[0] == '\0')
+	buf[fd] = ft_read(fd, buf[fd]);
+	if (!buf[fd])
 	{
-		free(buf);
-		buf = 0;
+		free(buf[fd]);
+		buf[fd] = 0;
 		return (0);
 	}
-	line = ft_get_line(buf);
-	buf = regulator(buf, line);
+	line = ft_get_line(buf[fd]);
+	buf[fd] = regulator(buf[fd], line);
 	return (line);
 }
 
 // int main()
 // {
-// 	int fd1 = open("main.txt", O_RDONLY);
+// 	int fd1 = open("main1.txt", O_RDONLY);
 // 	int fd2 = open("main2.txt", O_RDONLY);
 // 	int fd3 = open("main3.txt", O_RDONLY);
 
-// 	printf("%s\n", get_next_line(fd1));
-// 	printf("%s\n", get_next_line(fd2));
-// 	printf("%s\n", get_next_line(fd3));
+// 	printf("%s", get_next_line(fd1));
+// 	printf("%s", get_next_line(fd2));
+// 	printf("%s", get_next_line(fd3));
 // }
