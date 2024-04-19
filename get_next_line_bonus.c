@@ -103,7 +103,7 @@ char	*get_next_line(int fd)
 		return (0);
 	line = 0;
 	buf[fd] = ft_read(fd, buf[fd]);
-	if (!buf[fd])
+	if (!buf[fd] || buf[fd][0] == '\0')
 	{
 		free(buf[fd]);
 		buf[fd] = 0;
@@ -113,14 +113,3 @@ char	*get_next_line(int fd)
 	buf[fd] = regulator(buf[fd], line);
 	return (line);
 }
-
-// int main()
-// {
-// 	int fd1 = open("main1.txt", O_RDONLY);
-// 	int fd2 = open("main2.txt", O_RDONLY);
-// 	int fd3 = open("main3.txt", O_RDONLY);
-
-// 	printf("%s", get_next_line(fd1));
-// 	printf("%s", get_next_line(fd2));
-// 	printf("%s", get_next_line(fd3));
-// }

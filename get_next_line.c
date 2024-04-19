@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+// #include <fcntl.h>
+// #include <stdio.h>
 
 char	*regulator(char *buf, char *line)
 {
@@ -98,9 +100,7 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-	{
 		return (0);
-	}
 	line = 0;
 	buf = ft_read(fd, buf);
 	if (!buf || buf[0] == '\0')
